@@ -24,13 +24,13 @@ Contributing
 
 * `git clone <repository-url>`
 * `cd ember-hooks`
-* `npm install`
+* `yarn`
 
 ### Linting
 
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+* `yarn lint:hbs`
+* `yarn lint:js`
+* `yarn lint:js -- --fix`
 
 ### Running tests
 
