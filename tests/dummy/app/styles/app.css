@@ -1,0 +1,8 @@
+button {
+  background: none;
+  border: 2px solid rebeccapurple;
+  color: rebeccapurple;
+  padding: 0.5em;
+  font-size: 1em;
+  cursor: pointer;
+}
