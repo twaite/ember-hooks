@@ -1,4 +1,4 @@
-ember-hooks
+Ember Hooks
 ==============================================================================
 
 This is an experimental addon that allows you to use react style hooks inside of ember. In theory this should allow you to create your Ember components without ever using the `this` keyword. Additionally I have wrapped the ember props in a proxy that handles getting and setting for you. This should allow you to just set and get like you would with normal objects. This is still WIP and experimental.
@@ -47,8 +47,9 @@ import useCounter from "../hooks/useCounter";
 // withHooks will return a component with the mixin already attached
 // You can still pass in additional mixins as arguments before props
 const CounterUsingWithHooksComponent = withHooks(props => {
+
   // Explicitly deconstruct the values you want to use from the hook
-  const { count, increment} = useCounter();
+  const { count, increment } = useCounter();
 
   return {
     count,
