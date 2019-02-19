@@ -34,28 +34,46 @@ export const useProperties = defaultProps => {
     self.setProperties(defaultProps);
     const observed = self.getProperties(Object.keys(defaultProps));
 
-    self.instanceProxy = new Proxy(observed, {
-      get: function(target, prop, receiver) {
-        return self.get(prop);
-      },
-      set(obj, prop, value) {
-        obj[prop] = value;
-        return self.set(prop, value);
-      },
-    });
-
+    self.instanceProxy = observable(observed, self);
   }
 
   return self.instanceProxy;
 };
 
-// export const useComputed = (computedFunction, triggerProperties) {
-//   const self = currentInstance;
+const observable = (obj, scope, anscestors) => {
+  if (typeof obj === 'object') {
+    obj.__isProxy = true;
+    obj.__anscestors = anscestors;
 
-//   if (currentInstance.._state === 'preRender') {
-//     currentInstance
-//   }
-// }
+    Object.keys(obj).forEach(key => {
+      if (key !== '__anscestors' && key !== '__isProxy') {
+        const prev = obj.__anscestors ? [...obj.__anscestors, key] : [key];
+        obj[key] = observable(obj[key], scope, prev);
+      }
+    });
+
+    return new Proxy(obj, {
+      get(target, prop, receiver) {
+        console.log('getting', prop)
+        if (target.__isProxy) {
+          return target[prop];
+        }
+        return scope.get(prop);
+      },
+      set(obj, prop, value) {
+        if (obj.__anscestors) {
+          console.log('setting dee');
+          scope.set(`${obj.__anscestors.join('.')}.${prop}`, value);
+        } else {
+          scope.set(prop, value);
+        }
+        return Reflect.set(...arguments);
+      },
+    });
+  } else {
+    return obj;
+  }
+}
 
 export const useStore = () => {
   const self = currentInstance;

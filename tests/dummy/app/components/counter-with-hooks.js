@@ -7,17 +7,32 @@ export default Component.extend(EmberHooksMixin, {
   hooks() {
     const state = useProperties({
       count: 0,
-      testArray: [1, 2, 3],
+      nested: {
+        count: 0,
+        nested: {
+          count: 0,
+        },
+      },
     });
 
     const increment = () => {
       state.count = state.count + 1;
-      state.testArray.push(5);
+    }
+
+    const incrementNested = () => {
+      console.log(state.nested);
+      state.nested.count = state.nested.count + 1;
+    }
+
+    const incrementUberNested = () => {
+      state.nested.nested.count++
     }
 
     return {
       actions: {
         increment,
+        incrementNested,
+        incrementUberNested,
       }
     };
   }

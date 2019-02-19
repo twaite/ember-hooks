@@ -1,5 +1,6 @@
 <h3>Count: {{count}}</h3>
 <button onclick={{action "increment"}}>Increment</button>
-{{#each testArray as |test|}}
-  {{test}}
-{{/each}}
+<h3>Nested Count: {{nested.count}}</h3>
+<button onclick={{action "incrementNested"}}>Increment nested</button>
+<h3>Uber Nested Count: {{nested.nested.count}}</h3>
+<button onclick={{action "incrementUberNested"}}>Increment Uber Nested</button>
