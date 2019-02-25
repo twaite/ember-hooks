@@ -6,27 +6,26 @@ export default Component.extend(EmberHooksMixin, {
   layout,
   hooks() {
     const state = useProperties({
-      count: 0,
+      countA: 0,
       nested: {
-        count: 0,
+        countB: 0,
         nested: {
-          count: 0,
+          countC: 0,
         },
       },
     });
 
     const increment = () => {
-      state.count = state.count + 1;
-    }
+      state.countA = state.countA + 1;
+    };
 
     const incrementNested = () => {
-      console.log(state.nested);
-      state.nested.count = state.nested.count + 1;
-    }
+      state.nested.countB = state.nested.countB + 1;
+    };
 
     const incrementUberNested = () => {
-      state.nested.nested.count++
-    }
+      state.nested.nested.countC++
+    };
 
     return {
       actions: {
