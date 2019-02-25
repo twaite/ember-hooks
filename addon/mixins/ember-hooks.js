@@ -1,3 +1,6 @@
+/* global: clone */
+// TODO: figure out how to make clone not global
+
 import Mixin from '@ember/object/mixin';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
@@ -31,10 +34,13 @@ export const useProperties = defaultProps => {
   const self = currentInstance;
 
   if (self._state === 'preRender' && !self.instanceProxy) {
-    self.setProperties(defaultProps);
-    const observed = self.getProperties(Object.keys(defaultProps));
 
-    self.instanceProxy = observable(observed, self);
+    // Create a clone of the default props so we can wrap the proxy around a POJO
+    const defaultPropsClone = clone(defaultProps);
+
+    self.setProperties(defaultPropsClone);
+
+    self.instanceProxy = observable(defaultProps, self);
   }
 
   return self.instanceProxy;
@@ -54,7 +60,6 @@ const observable = (obj, scope, anscestors) => {
 
     return new Proxy(obj, {
       get(target, prop, receiver) {
-        console.log('getting', prop)
         if (target.__isProxy) {
           return target[prop];
         }
@@ -62,18 +67,24 @@ const observable = (obj, scope, anscestors) => {
       },
       set(obj, prop, value) {
         if (obj.__anscestors) {
-          console.log('setting dee');
-          scope.set(`${obj.__anscestors.join('.')}.${prop}`, value);
+          const navigationString = createPropertyNavigationString(obj.__anscestors, prop);
+          scope.set(navigationString, value);
         } else {
           scope.set(prop, value);
         }
-        return Reflect.set(...arguments);
+
+        obj[prop] = value;
+
+        // Set should return true if it was successful
+        return true;
       },
     });
   } else {
     return obj;
   }
-}
+};
+
+const createPropertyNavigationString = (ancestors, prop) => `${ancestors.join('.')}.${prop}`;
 
 export const useStore = () => {
   const self = currentInstance;
@@ -85,7 +96,6 @@ export const withHooks = (...args) => {
   const config = args.pop(args.length - 1);
   return Component.extend(EmberHooksMixin, ...args, {
     hooks() {
-      console.log(this);
       return config(this.attrs);
     },
   });
