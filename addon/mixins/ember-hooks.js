@@ -1,4 +1,4 @@
-/* global: clone */
+/* global clone */
 // TODO: figure out how to make clone not global
 
 import Mixin from '@ember/object/mixin';
