@@ -46,14 +46,14 @@ export const useProperties = defaultProps => {
   return self.instanceProxy;
 };
 
-const observable = (obj, scope, anscestors) => {
+const observable = (obj, scope, ancestors) => {
   if (typeof obj === 'object') {
     obj.__isProxy = true;
-    obj.__anscestors = anscestors;
+    obj.__ancestors = ancestors;
 
     Object.keys(obj).forEach(key => {
-      if (key !== '__anscestors' && key !== '__isProxy') {
-        const prev = obj.__anscestors ? [...obj.__anscestors, key] : [key];
+      if (key !== '__ancestors' && key !== '__isProxy') {
+        const prev = obj.__ancestors ? [...obj.__ancestors, key] : [key];
         obj[key] = observable(obj[key], scope, prev);
       }
     });
@@ -66,8 +66,8 @@ const observable = (obj, scope, anscestors) => {
         return scope.get(prop);
       },
       set(obj, prop, value) {
-        if (obj.__anscestors) {
-          const navigationString = createPropertyNavigationString(obj.__anscestors, prop);
+        if (obj.__ancestors) {
+          const navigationString = createPropertyNavigationString(obj.__ancestors, prop);
           scope.set(navigationString, value);
         } else {
           scope.set(prop, value);
