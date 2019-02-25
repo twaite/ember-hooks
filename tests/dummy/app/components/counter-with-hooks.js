@@ -20,7 +20,6 @@ export default Component.extend(EmberHooksMixin, {
     }
 
     const incrementNested = () => {
-      console.log(state.nested);
       state.nested.countB = state.nested.countB + 1;
     }
 
