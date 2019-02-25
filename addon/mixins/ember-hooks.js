@@ -99,4 +99,4 @@ export const withHooks = (...args) => {
       return config(this.attrs);
     },
   });
-}
+};
