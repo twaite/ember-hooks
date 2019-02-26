@@ -7,14 +7,19 @@ const ArrayHooks = withHooks(attrs => {
   });
 
   const addColor = () => {
-    props.colors.push('test');
+    props.colors.push('purple');
+    props.count++;
   }
 
-  console.log('rerender');
+  const removeColor = () => {
+    props.colors.pop();
+  }
 
   return {
+    props,
     actions: {
       addColor,
+      removeColor,
     },
   };
 });
