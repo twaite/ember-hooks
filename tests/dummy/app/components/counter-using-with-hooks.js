@@ -1,8 +1,7 @@
 import { withHooks } from "ember-hooks/mixins/ember-hooks";
 import useCounter from "../hooks/useCounter";
 
-const CounterUsingWithHooksComponent = withHooks(props => {
-  console.log(props);
+const CounterUsingWithHooksComponent = withHooks(attrs => {
   const { count, increment} = useCounter();
 
   return {

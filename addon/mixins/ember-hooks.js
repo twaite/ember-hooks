@@ -3,6 +3,7 @@
 
 import Mixin from '@ember/object/mixin';
 import Component from '@ember/component';
+import { A } from '@ember/array';
 import { inject as service } from '@ember/service';
 
 let currentInstance = null;
@@ -30,6 +31,11 @@ const EmberHooksMixin = Mixin.create({
 
 export default EmberHooksMixin;
 
+/**
+ * TODO: twaite - only add the props the first time
+ * This will make it so you can't add new properties that aren't initially defined,
+ * but the advantage is that we won't be recreating the proxy every render.
+ */
 export const useProperties = defaultProps => {
   const self = currentInstance;
 
@@ -37,8 +43,11 @@ export const useProperties = defaultProps => {
 
     // Create a clone of the default props so we can wrap the proxy around a POJO
     const defaultPropsClone = clone(defaultProps);
+    const emberizedDefaultPropsClone = emberizeArrays(defaultPropsClone);
 
-    self.setProperties(defaultPropsClone);
+    // TODO: twaite - this should handle arrays as ember arrays
+
+    self.setProperties(emberizedDefaultPropsClone);
 
     self.instanceProxy = observable(defaultProps, self);
   }
@@ -46,8 +55,24 @@ export const useProperties = defaultProps => {
   return self.instanceProxy;
 };
 
-const observable = (obj, scope, ancestors) => {
+const emberizeArrays = (obj) => {
   if (typeof obj === 'object') {
+    Object.keys(obj).forEach(key => {
+      let value = obj[key];
+      value = A(value);
+      value = value.map(val => emberizeArrays(val));
+      return value;
+    })
+    return obj;
+  }
+
+  return obj;
+}
+
+const observable = (obj, scope, ancestors) => {
+  if (Array.isArray(obj)) {
+    return observableArray(obj, scope, ancestors);
+  } else if (typeof obj === 'object') {
     obj.__isProxy = true;
     obj.__ancestors = ancestors;
 
@@ -59,10 +84,11 @@ const observable = (obj, scope, ancestors) => {
     });
 
     return new Proxy(obj, {
-      get(target, prop, receiver) {
+      get(target, prop) {
         if (target.__isProxy) {
           return target[prop];
         }
+
         return scope.get(prop);
       },
       set(obj, prop, value) {
@@ -84,6 +110,25 @@ const observable = (obj, scope, ancestors) => {
   }
 };
 
+const emberArrayMap = {
+  'push': 'pushObject'
+}
+
+const observableArray = (obj, scope, ancestors) => {
+  obj.__ancestors = ancestors;
+  Object.keys(emberArrayMap).forEach(prop => {
+    obj[prop] = new Proxy(obj[prop], {
+      apply(target, thisArg, argumentlist) {
+        scope.get(thisArg.__ancestors.join('.'))[emberArrayMap[prop]](...argumentlist);
+        console.log(scope.get(thisArg.__ancestors.join('.')));
+        Reflect.apply(...arguments);
+      }
+    })
+  });
+
+  return obj;
+}
+
 const createPropertyNavigationString = (ancestors, prop) => `${ancestors.join('.')}.${prop}`;
 
 export const useStore = () => {
@@ -93,6 +138,7 @@ export const useStore = () => {
 };
 
 export const withHooks = (...args) => {
+  // This will get any mixins passed in
   const config = args.pop(args.length - 1);
   return Component.extend(EmberHooksMixin, ...args, {
     hooks() {
