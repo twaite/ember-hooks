@@ -139,11 +139,7 @@ const _handleArrayFunctions = (scope, target, prop) => {
     }
   } else if (prop === 'unshift') {
     return (...args) => {
-      if (args.length === 1) {
-        emberArray.unshiftObject(...args);
-      } else {
-        emberArray.unshiftObjects(args);
-      }
+      emberArray.unshiftObjects(args);
       return target.unshift(...args);
     }
   } else if (prop === 'reverse') {
