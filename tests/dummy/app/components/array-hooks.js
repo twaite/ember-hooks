@@ -2,18 +2,37 @@ import { withHooks, useProperties } from "ember-hooks/mixins/ember-hooks";
 
 const allColors = ['red', 'blue', 'orange', 'purple', 'green'];
 
+const getRandomColor = () => {
+  return allColors[Math.floor(Math.random() * allColors.length)];
+}
+
 const ArrayHooks = withHooks(() => {
   const props = useProperties({
     colors: ['red'],
   });
 
   const addColor = () => {
-    const randomColor = allColors[Math.floor(Math.random() * allColors.length)];
-    props.colors.push(randomColor);
+    props.colors.push(getRandomColor());
   }
 
   const removeColor = () => {
     props.colors.pop();
+  }
+
+  const removeFirstColor = () => {
+    props.colors.shift();
+  }
+
+  const unshiftColor = () => {
+    props.colors.unshift(getRandomColor());
+  }
+
+  const unshiftMultipleColors = () => {
+    props.colors.unshift(getRandomColor(), getRandomColor());
+  }
+
+  const reverseColors = () => {
+    props.colors.reverse();
   }
 
   return {
@@ -21,6 +40,10 @@ const ArrayHooks = withHooks(() => {
     actions: {
       addColor,
       removeColor,
+      removeFirstColor,
+      unshiftColor,
+      unshiftMultipleColors,
+      reverseColors,
     },
   };
 });

@@ -121,15 +121,35 @@ const observable = (obj, scope, ancestors) => {
 
 const _handleArrayFunctions = (scope, target, prop) => {
   // TODO: tw - should this be an object instead of ifs?
+  const emberArray = scope.get(target.__ancestors.join());
   if (prop === 'push') {
     return (val) => {
-      scope.get(target.__ancestors.join()).pushObject(val);
-      target.push(val);
+      emberArray.pushObject(val);
+      return target.push(val);
     };
   } else if (prop === 'pop') {
     return () => {
-      scope.get(target.__ancestors.join()).popObject();
-      target.pop();
+      emberArray.popObject();
+      return target.pop();
+    }
+  } else if (prop === 'shift') {
+    return () => {
+      emberArray.shiftObject();
+      return target.shift();
+    }
+  } else if (prop === 'unshift') {
+    return (...args) => {
+      if (args.length === 1) {
+        emberArray.unshiftObject(...args);
+      } else {
+        emberArray.unshiftObjects(args);
+      }
+      return target.unshift(...args);
+    }
+  } else if (prop === 'reverse') {
+    return () => {
+      emberArray.reverseObjects();
+      return target.reverse();
     }
   }
 

@@ -2,5 +2,9 @@
   <span class="circle bg-{{color}}"></span>
 {{/each}}
 <br>
-<button onclick={{action "addColor"}}>Add Color</button>
-<button onclick={{action "removeColor"}}>Remove Color</button>
+<button onclick={{action "addColor"}}>Add Color To End</button>
+<button onclick={{action "removeColor"}}>Remove Color From End</button>
+<button onclick={{action "removeFirstColor"}}>Remove First Color</button>
+<button onclick={{action "unshiftColor"}}>Add Color To Beginning</button>
+<button onclick={{action "unshiftMultipleColors"}}>Add Two Colors To Beginning</button>
+<button onclick={{action "reverseColors"}}>Reverse Colors</button>
