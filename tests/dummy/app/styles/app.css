@@ -6,3 +6,30 @@ button {
   font-size: 1em;
   cursor: pointer;
 }
+
+.bg-red {
+  background: red;
+}
+
+.bg-blue {
+  background: blue;
+}
+
+.bg-orange {
+  background: orange;
+}
+
+.bg-purple {
+  background: purple;
+}
+
+.bg-green {
+  background: green;
+}
+
+.circle {
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+  display: inline-block;
+}

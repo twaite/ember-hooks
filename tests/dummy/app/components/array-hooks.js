@@ -1,14 +1,15 @@
 import { withHooks, useProperties } from "ember-hooks/mixins/ember-hooks";
 
-const ArrayHooks = withHooks(attrs => {
+const allColors = ['red', 'blue', 'orange', 'purple', 'green'];
+
+const ArrayHooks = withHooks(() => {
   const props = useProperties({
-    colors: ['red', 'blue', 'orange'],
-    count: 0,
+    colors: ['red'],
   });
 
   const addColor = () => {
-    props.colors.push('purple');
-    props.count++;
+    const randomColor = allColors[Math.floor(Math.random() * allColors.length)];
+    props.colors.push(randomColor);
   }
 
   const removeColor = () => {

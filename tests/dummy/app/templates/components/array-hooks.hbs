@@ -1,6 +1,6 @@
 {{#each colors as |color|}}
-  <span style="background-color: {{color}}; height: 1em; width: 1em; border-radius: 50%;display: inline-block"></span>
+  <span class="circle bg-{{color}}"></span>
 {{/each}}
-<br/>
+<br>
 <button onclick={{action "addColor"}}>Add Color</button>
 <button onclick={{action "removeColor"}}>Remove Color</button>
