@@ -5,10 +5,11 @@ export function is(x: any, y: any): boolean {
 }
 
 /**
- * Compares a set of dependency arrays to each other
+ * Compares a set of dependency arrays to each other. Null values invalidate equality.
+ * This is consistent with how deps are checked in other hooks implementations.
  */
-export function depsAreEqual(newDeps: any[], prevDeps: any[]): boolean {
-  if (prevDeps === null) return false;
+export function depsAreEqual(newDeps: any[] | null, prevDeps: any[] | null): boolean {
+  if (prevDeps === null || newDeps === null) return false;
 
   for (let i = 0; i < prevDeps.length && i < newDeps.length; i++) {
     if (!is(newDeps[i], prevDeps[i])) return false;

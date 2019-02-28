@@ -14,7 +14,9 @@ const MemoizedComponent = withHooks(() => {
     state.countDep = state.countDep + 1;
   }
 
-  // The callback function will only be ran when it's dependencies change
+  // The callback function will only be ran when it's dependencies change.
+  // Without memoizing this or using a computed this would calculate on every render
+  // including when for example, the `count` property changed
   const expensiveCount = useMemo(() => {
     let x = 0;
     for (let i = 0; i <= state.countDep * 1000000; i++) {
