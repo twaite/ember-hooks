@@ -1,13 +1,57 @@
 import Mixin from '@ember/object/mixin';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { depsAreEqual } from '../util';
+import { depsAreEqual } from './util';
 
-let currentInstance = null;
+type MemoizedStateEntry = [any, any[] | null];
+
+export interface IHookStore {
+  memoizedState: {
+    [key: number]: MemoizedStateEntry
+  }
+}
+
+export interface IEmberHooksComponent extends Component {
+  hooks(instance: Component): void,
+  instanceProxy: ProxyHandler<any>,
+  _state: string,
+  _hookStore: IHookStore,
+}
+
 let hookCallIndex = 0;
+let currentInstance: IEmberHooksComponent | null = null;
+
+const EmberHooksMixin = Mixin.create({
+  init(this: IEmberHooksComponent) {
+    this._super(...arguments);
+    const hooks = this.get('hooks');
+    if (hooks) {
+      this.set('_hookStore', { memoizedState: {} });
+
+      currentInstance = this;
+      const vals = hooks.call(this);
+      this.setProperties(vals);
+      currentInstance = null;
+    }
+  },
+  willRender(this: IEmberHooksComponent) {
+    hookCallIndex = 0;
+    this._super(...arguments);
+    const hooks = this.get('hooks');
+    if (hooks) {
+      currentInstance = this;
+      const vals = hooks.call(currentInstance);
+      currentInstance.setProperties(vals);
+      currentInstance = null;
+    }
+  },
+});
 
 export const useProperties = defaultProps => {
   const self = currentInstance;
+  if (self === null) {
+    throw new Error('Unable to find Ember instance');
+  }
 
   if (self._state === 'preRender' && !self.instanceProxy) {
     self.setProperties(defaultProps);
@@ -30,6 +74,10 @@ export const useProperties = defaultProps => {
 
 export const useStore = () => {
   const self = currentInstance;
+  if (self === null) {
+    throw new Error('Unable to find Ember instance');
+  }
+
   if (self._state === 'preRender') self.set('store', service('store'));
   return self.get('store');
 };
@@ -50,11 +98,16 @@ export const withHooks = (...args) => {
  * @param {function} createMemoizedValue - function to compute an expensive value
  * @param {Array} deps - Array of dependencies
  */
-export const useMemo = (createMemoizedValue, deps) => {
-  hookCallIndex++;
-  deps = deps === undefined ? null : deps;
+export const useMemo = <T>(createMemoizedValue: () => T, deps?: any[] | null): T => {
+  const instance = currentInstance;
+  if (instance === null) {
+    throw new Error('Unable to find Ember instance');
+  }
 
-  const hook = currentInstance.get('__hookStore');
+  hookCallIndex++;
+  deps = deps != null ? deps : null;
+
+  const hook = instance.get('_hookStore');
 
   const prevState = hook.memoizedState[hookCallIndex];
   if (prevState != null && deps != null) {
@@ -68,29 +121,6 @@ export const useMemo = (createMemoizedValue, deps) => {
   return nextState;
 }
 
-const EmberHooksMixin = Mixin.create({
-  init() {
-    this._super(...arguments);
-    const hooks = this.get('hooks');
-    if (hooks) {
-      this.set('__hookStore', {
-        memoizedState: {}
-      });
-      currentInstance = this;
-      const vals = hooks.call(currentInstance);
-      currentInstance.setProperties(vals);
-    }
-  },
-  willRender() {
-    hookCallIndex = 0;
-    this._super(...arguments);
-    const hooks = this.get('hooks');
-    if (hooks) {
-      currentInstance = this;
-      const vals = hooks.call(currentInstance);
-      currentInstance.setProperties(vals);
-    }
-  },
-});
+
 
 export default EmberHooksMixin;
