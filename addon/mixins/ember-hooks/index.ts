@@ -27,7 +27,7 @@ const EmberHooksMixin = Mixin.create({
     const hooks = this.get('hooks');
     if (hooks) {
       this.set('_hookStore', { memoizedState: {} });
-
+      hookCallIndex = 0;
       currentInstance = this;
       const vals = hooks.call(this);
       this.setProperties(vals);
@@ -35,10 +35,10 @@ const EmberHooksMixin = Mixin.create({
     }
   },
   willRender(this: IEmberHooksComponent) {
-    hookCallIndex = 0;
     this._super(...arguments);
     const hooks = this.get('hooks');
     if (hooks) {
+      hookCallIndex = 0;
       currentInstance = this;
       const vals = hooks.call(currentInstance);
       currentInstance.setProperties(vals);
