@@ -1,3 +1,0 @@
-# useObservableProps
-
-TODO: useObservableProps docs
