@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ember Hooks | Ember Hooks</title>
+    <meta name="description" content="Documentation for Ember Hooks">
+    
+    
+    <link rel="preload" href="/ember-hooks/assets/css/0.styles.3e8d1467.css" as="style"><link rel="preload" href="/ember-hooks/assets/js/app.37127cc0.js" as="script"><link rel="preload" href="/ember-hooks/assets/js/3.d55c58d8.js" as="script"><link rel="prefetch" href="/ember-hooks/assets/js/2.7974f97d.js"><link rel="prefetch" href="/ember-hooks/assets/js/4.78af5c2e.js"><link rel="prefetch" href="/ember-hooks/assets/js/5.ab867345.js"><link rel="prefetch" href="/ember-hooks/assets/js/6.bd2a0338.js">
+    <link rel="stylesheet" href="/ember-hooks/assets/css/0.styles.3e8d1467.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/ember-hooks/" class="home-link router-link-exact-active router-link-active"><!----> <span class="site-name">Ember Hooks</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Hooks API</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/ember-hooks/use-observable-props/" class="nav-link">useObservableProps</a></li><li class="dropdown-item"><!----> <a href="/ember-hooks/use-memo/" class="nav-link">useMemo</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/twaite/ember-hooks" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Hooks API</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/ember-hooks/use-observable-props/" class="nav-link">useObservableProps</a></li><li class="dropdown-item"><!----> <a href="/ember-hooks/use-memo/" class="nav-link">useMemo</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/twaite/ember-hooks" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <!----> </div> <div class="page"> <div class="content"><h1 id="ember-hooks"><a href="#ember-hooks" aria-hidden="true" class="header-anchor">#</a> Ember Hooks</h1> <p>The main goal of this project is to bring React/Vue style hooks to ember. This helps reduce the need for mixins by allowing a very declarative way of adding duplicated state (props) in multiple components.</p> <p>The secondary goal of this project is to introduce a simpler way of writing Ember components. This is done by adding two hooks that allow you to write code in a more familiar way: <code>useObservedProps</code> for vue style mutable data and <code>useState</code> for react style immutable data. This helps abstract away the overhead of knowing the internals of Ember (get/set for objects, and additional array functionality such as pushObject).</p> <h4 id="inspired-by"><a href="#inspired-by" aria-hidden="true" class="header-anchor">#</a> Inspired by:</h4> <ul><li><a href="https://reactjs.org/docs/hooks-intro.html">React Hooks</a></li> <li><a href="https://github.com/yyx990803/vue-hooks">Vue Hooks</a></li></ul> <h2 id="motivation"><a href="#motivation" aria-hidden="true" class="header-anchor">#</a> Motivation</h2> <p>This project has largely been inspired by my work on a very large and somewhat outdated Ember project. While the functionality offered by this app is incredible, it has gotten very out of date and incredibly confusing for people rolling on and off the project. No where is this more obvious than the liberal use of Mixins. Mixins can be great for a small project with a small team, but when there are many maintainers they often obfuscate the code. Additionally they often get overused where a service or plain JS files could do better.</p> <p>By offering a better way of reusing state and giving syntax that is similar to Vue or React we will make it much easier for new devs to be productive from day one. Additionally we feel that this method allows a much simpler way to type your reusable code with typescript which will help reduce confusing functionality and testing.</p> <h2 id="caveats"><a href="#caveats" aria-hidden="true" class="header-anchor">#</a> Caveats</h2> <p>There are two main caveats, the first is unavoidable, because we are wrapping ember components and hooks run on every rerender there will be some additional overhead for hooks. Additionally observables will keep a copy of your internal state as a plain JS object. We don't expect this to be an issue in most case as we have implemented a couple things to help boost performance. One, setting initial props will only be run once to help reduce overhead, additionally our observables use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxies</a> which are much faster than <code>Object.defineProperty</code>, for light overhead.</p> <p>This brings us to the second point, because we use proxies, <code>useObservedProps</code> will only work with evergreen browsers. So there is no IE support w/ this hook, if you use the <code>useState</code> hook this should not be an issue. However if there was enough demand we could implement observables with <code>Object.defineProperty</code> to work with older browsers.</p> <h2 id="basics"><a href="#basics" aria-hidden="true" class="header-anchor">#</a> Basics</h2> <p>Here's the basic usage:</p> <h4 id="javascript"><a href="#javascript" aria-hidden="true" class="header-anchor">#</a> Javascript</h4> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> Component <span class="token keyword">from</span> <span class="token string">'@ember/component'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> layout <span class="token keyword">from</span> <span class="token string">'../templates/components/counter-with-hooks'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> EmberHooksMixin<span class="token punctuation">,</span> <span class="token punctuation">{</span> useObservedProps <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'ember-hooks/mixins/ember-hooks'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> Component<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span>EmberHooksMixin<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  layout<span class="token punctuation">,</span>
+  <span class="token function">hooks</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Use properties will automatically bind this data to your components scope</span>
+    <span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token function">useObservedProps</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      count<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Note that you don't need to refer to this, instead you can mutate the values directly</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">increment</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      state<span class="token punctuation">.</span>count <span class="token operator">=</span> state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// What gets returned here will bind to your component</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        increment<span class="token punctuation">,</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h4 id="template"><a href="#template" aria-hidden="true" class="header-anchor">#</a> Template</h4> <div class="language-handlebars extra-class"><pre class="language-handlebars"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">&gt;</span></span>Count: <span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token variable">count</span><span class="token delimiter punctuation">}}</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token handlebars language-handlebars"><span class="token delimiter punctuation">{{</span><span class="token variable">action</span> <span class="token string">&quot;increment&quot;</span><span class="token delimiter punctuation">}}</span></span></span><span class="token punctuation">&gt;</span></span>Increment<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h3 id="same-component-using-a-custom-hook"><a href="#same-component-using-a-custom-hook" aria-hidden="true" class="header-anchor">#</a> Same component using a custom hook:</h3> <h4 id="component-js"><a href="#component-js" aria-hidden="true" class="header-anchor">#</a> component.js</h4> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> withHooks <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;ember-hooks/mixins/ember-hooks&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> useCounter <span class="token keyword">from</span> <span class="token string">&quot;../hooks/useCounter&quot;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// withHooks will return a component with the mixin already attached</span>
+<span class="token comment">// You can still pass in additional mixins as arguments before props</span>
+<span class="token keyword">const</span> CounterUsingWithHooksComponent <span class="token operator">=</span> <span class="token function">withHooks</span><span class="token punctuation">(</span>props <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+  <span class="token comment">// Explicitly deconstruct the values you want to use from the hook</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> count<span class="token punctuation">,</span> increment <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">useCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    count<span class="token punctuation">,</span>
+    actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      increment<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h4 id="usecounter-js"><a href="#usecounter-js" aria-hidden="true" class="header-anchor">#</a> useCounter.js</h4> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useObservedProps <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'ember-hooks/mixins/ember-hooks'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">useCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token function">useObservedProps</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    count<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">increment</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count <span class="token operator">=</span> state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    count<span class="token punctuation">:</span> state<span class="token punctuation">.</span>count<span class="token punctuation">,</span>
+    increment
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="typescript"><a href="#typescript" aria-hidden="true" class="header-anchor">#</a> Typescript</h2> <p>This syntax will also make it much easier to use typescript for static typing:</p> <h4 id="component-ts"><a href="#component-ts" aria-hidden="true" class="header-anchor">#</a> component.ts</h4> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> withHooks<span class="token punctuation">,</span> useObservedProps <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;ember-hooks/mixins/ember-hooks&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> useCounter <span class="token keyword">from</span> <span class="token string">&quot;../hooks/useCounter&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">CounterAttrs</span> <span class="token punctuation">{</span>
+  numberAttr<span class="token punctuation">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span>
+  stringAttr<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">ComponentProps</span> <span class="token punctuation">{</span>
+  myProp<span class="token punctuation">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">CounterHookType</span> <span class="token keyword">extends</span> <span class="token class-name">CounterProperties</span><span class="token punctuation">,</span> CounterAttrs <span class="token punctuation">{</span>
+  actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    customAction<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> CounterUsingWithHooksComponent <span class="token operator">=</span> <span class="token function">withHooks</span><span class="token punctuation">(</span><span class="token punctuation">(</span>attrs<span class="token punctuation">:</span> CounterAttrs<span class="token punctuation">)</span><span class="token punctuation">:</span> CounterHookType <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> count<span class="token punctuation">,</span> increment<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">useCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> props<span class="token punctuation">:</span> ComponentProps <span class="token operator">=</span> <span class="token function">useObservedProps</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    myProp<span class="token punctuation">:</span> <span class="token string">'prop'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> customAction <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Custom action</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    attrs<span class="token punctuation">,</span>
+    props<span class="token punctuation">,</span>
+    actions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      customAction<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> CounterUsingWithHooksComponent<span class="token punctuation">;</span>
+</code></pre></div><h4 id="usecount-ts"><a href="#usecount-ts" aria-hidden="true" class="header-anchor">#</a> useCount.ts</h4> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useObservedProps <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'ember-hooks/mixins/ember-hooks'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">UseCounterProps</span> <span class="token punctuation">{</span>
+  count<span class="token punctuation">:</span> <span class="token builtin">number</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">UseCounterType</span> <span class="token keyword">extends</span> <span class="token class-name">UseCounterProps</span> <span class="token punctuation">{</span>
+  increment<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">useCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> UseCounterType <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> state<span class="token punctuation">:</span> UseCounterProps <span class="token operator">=</span> <span class="token function">useObservedProps</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    count<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">increment</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count <span class="token operator">=</span> state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    count<span class="token punctuation">:</span> state<span class="token punctuation">.</span>count<span class="token punctuation">,</span>
+    increment<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/ember-hooks/assets/js/app.37127cc0.js" defer></script><script src="/ember-hooks/assets/js/3.d55c58d8.js" defer></script>
+  </body>
+</html>
