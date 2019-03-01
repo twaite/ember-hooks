@@ -18,7 +18,7 @@ By offering a better way of reusing state and giving syntax that is similar to V
 
 ## Caveats
 
-There are two main caveats, the first is unavoidable, because we are wrapping ember components and hooks run on ever rerender there will be some additional overhead for hooks. Additionally observables will keep a copy of your internal state as a plain JS object. We don't expect this to be an issue in most case as we have implemented a couple things to help boost performance. One, setting initial props will only be run once to help reduce overhead, additionally our observables use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxies</a> which are much faster than `Object.defineProperty`, for light overhead.
+There are two main caveats, the first is unavoidable, because we are wrapping ember components and hooks run on every rerender there will be some additional overhead for hooks. Additionally observables will keep a copy of your internal state as a plain JS object. We don't expect this to be an issue in most case as we have implemented a couple things to help boost performance. One, setting initial props will only be run once to help reduce overhead, additionally our observables use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxies</a> which are much faster than `Object.defineProperty`, for light overhead.
 
 This brings us to the second point, because we use proxies, `useObservedProps` will only work with evergreen browsers. So there is no IE support w/ this hook, if you use the `useState` hook this should not be an issue. However if there was enough demand we could implement observables with `Object.defineProperty` to work with older browsers.
 
@@ -105,7 +105,7 @@ export default function useCounter() {
 }
 ```
 
-### Typescript
+## Typescript
 
 This syntax will also make it much easier to use typescript for static typing:
 

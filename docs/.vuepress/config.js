@@ -4,7 +4,14 @@ module.exports = {
   base: '/ember-hooks/',
   themeConfig: {
     nav: [
-      { text: 'Github', link: 'https://github.com/twaite/ember-hooks' }
+      {
+        text: 'Hooks API',
+        items: [
+          { text: 'useObservableProps', link: '/use-observable-props/' },
+          { text: 'useMemo', link: '/use-memo/' },
+        ]
+      },
+      { text: 'Github', link: 'https://github.com/twaite/ember-hooks' },
     ]
   }
-}
+};
