@@ -13,6 +13,8 @@
     "test": "tests"
   },
   "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
@@ -63,7 +65,8 @@
     "eslint-plugin-node": "^7.0.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.0",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "vuepress": "^0.14.9"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

@@ -3,6 +3,7 @@
 # compiled output
 /dist/
 /tmp/
+/docs/.vuepress/dist/
 
 # dependencies
 /bower_components/
