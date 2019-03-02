@@ -1,4 +1,4 @@
-import { withHooks, useProperties } from "ember-hooks/mixins/ember-hooks";
+import { withHooks, useObservableProps } from "ember-hooks/mixins/ember-hooks";
 
 const allColors = ['red', 'blue', 'orange', 'purple', 'green'];
 
@@ -7,7 +7,7 @@ const getRandomColor = () => {
 }
 
 const ArrayHooks = withHooks(() => {
-  const props = useProperties({
+  const props = useObservableProps({
     colors: ['red'],
   });
 
