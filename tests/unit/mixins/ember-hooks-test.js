@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import EmberHooksMixin from 'ember-hooks/mixins/ember-hooks';
+import EmberHooksMixin from 'ember-hooks/mixins/ember-hooks.ts';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | ember-hooks', function() {

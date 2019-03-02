@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { depsAreEqual } from './util';
+import { depsAreEqual } from '../utils/memo';
 
 type MemoizedStateEntry = [any, any[] | null];
 
