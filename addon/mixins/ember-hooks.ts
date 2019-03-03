@@ -30,7 +30,7 @@ let hookCallIndex = 0;
 let currentInstance: IEmberHooksComponent | null = null;
 
 const EmberHooksMixin = Mixin.create({
-  init(this: IEmberHooksComponent): void {
+  init(this: IEmberHooksComponent) {
     this._super(...arguments);
     const hooks = this.get('hooks');
     if (hooks) {
@@ -43,7 +43,7 @@ const EmberHooksMixin = Mixin.create({
       currentInstance = null;
     }
   },
-  willRender(this: IEmberHooksComponent): void {
+  willRender() {
     this._super(...arguments);
     const hooks = this.get('hooks');
     if (hooks) {
@@ -59,12 +59,8 @@ const EmberHooksMixin = Mixin.create({
 /*
  * TODO: tw - doc
  */
-export const useObservableProps = (defaultProps: any) => {
-  if (currentInstance === null) {
-    throw new Error('Unable to find Ember instance');
-  }
-
-  const self: IEmberHooksComponent = currentInstance;
+export const useProperties = defaultProps => {
+  const self = currentInstance;
 
   if (self._state === 'preRender' && !self.instanceProxy) {
 
@@ -78,19 +74,19 @@ export const useObservableProps = (defaultProps: any) => {
 
     self.setProperties(emberizedDefaultPropsClone);
 
-    self.instanceProxy = observable(defaultProps, self, []);
+    self.instanceProxy = observable(defaultProps, self);
   }
 
   return self.instanceProxy;
 };
 
-const emberizeArrays = (obj: any): any => {
+const emberizeArrays = (obj) => {
   if (typeof obj === 'object') {
     Object.keys(obj).forEach(key => {
       let value = obj[key];
       if (Array.isArray(value)) {
         value = A(value);
-        value = value.map((val: any) => emberizeArrays(val));
+        value = value.map(val => emberizeArrays(val));
       }
       return value;
     })
@@ -100,7 +96,7 @@ const emberizeArrays = (obj: any): any => {
   return obj;
 }
 
-const observable = (obj: any, scope: IEmberHooksComponent, ancestors: string[]): ProxyHandler<any> => {
+const observable = (obj, scope, ancestors) => {
   if (typeof obj === 'object') {
     // Set metadata
     Object.defineProperty(obj, '__isProxy', {
@@ -130,7 +126,7 @@ const observable = (obj: any, scope: IEmberHooksComponent, ancestors: string[]):
       },
       set(obj, prop, value) {
         if (obj.__ancestors) {
-          const navigationString: string = createPropertyNavigationString(obj.__ancestors, prop);
+          const navigationString = createPropertyNavigationString(obj.__ancestors, prop);
           scope.set(navigationString, value);
         } else {
           scope.set(prop, value);
@@ -152,7 +148,7 @@ const _handleArrayFunctions = (scope, target, prop) => {
   // TODO: tw - should this be an object instead of ifs?
   const emberArray = scope.get(target.__ancestors.join());
   if (prop === 'push') {
-    return (val: any) => {
+    return (val) => {
       emberArray.pushObject(val);
       return target.push(val);
     };
@@ -167,7 +163,7 @@ const _handleArrayFunctions = (scope, target, prop) => {
       return target.shift();
     }
   } else if (prop === 'unshift') {
-    return (...args: any[]) => {
+    return (...args) => {
       emberArray.unshiftObjects(args);
       return target.unshift(...args);
     }
@@ -181,12 +177,9 @@ const _handleArrayFunctions = (scope, target, prop) => {
   // TODO: tw- should this have a default return, if so what?
 }
 
-const createPropertyNavigationString: string = (ancestors: string[], prop: string): string => `${ancestors.join('.')}.${prop}`;
+const createPropertyNavigationString = (ancestors, prop) => `${ancestors.join('.')}.${prop}`;
 
 export const useStore = () => {
-  if (currentInstance === null) {
-    throw new Error('Unable to find Ember instance');
-  }
   const self = currentInstance;
   if (self._state === 'preRender') self.set('store', service('store'));
   return self.get('store');
@@ -222,9 +215,9 @@ export const useMemo = <T>(createMemoizedValue: () => T, deps?: any[] | null): T
   return nextState;
 }
 
-export const withHooks = (...args: any[]): Component => {
+export const withHooks = (...args) => {
   // This will get any mixins passed in
-  const config = args.pop();
+  const config = args.pop(args.length - 1);
   return Component.extend(EmberHooksMixin, ...args, {
     hooks() {
       return config(this.attrs);

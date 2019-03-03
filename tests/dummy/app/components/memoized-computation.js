@@ -1,7 +1,7 @@
-import { withHooks, useMemo, useObservableProps } from "ember-hooks/mixins/ember-hooks";
+import { withHooks, useMemo, useProperties } from "ember-hooks/mixins/ember-hooks";
 
 const MemoizedComponent = withHooks(() => {
-  const state = useObservableProps({
+  const state = useProperties({
     count: 0,
     countDep: 0
   });
