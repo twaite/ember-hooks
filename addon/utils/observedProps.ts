@@ -1,12 +1,13 @@
 import { A } from '@ember/array';
+import { IEmberHooksComponent } from 'ember-hooks/mixins/ember-hooks';
 
-export const emberizeArrays = (obj) => {
+export const emberizeArrays = (obj: any): any => {
   if (typeof obj === 'object') {
     Object.keys(obj).forEach(key => {
       let value = obj[key];
       if (Array.isArray(value)) {
         value = A(value);
-        value = value.map(val => emberizeArrays(val));
+        value = value.map((val: any) => emberizeArrays(val));
       }
       return value;
     })
@@ -16,7 +17,7 @@ export const emberizeArrays = (obj) => {
   return obj;
 }
 
-export const observable = (obj, scope, ancestors) => {
+export const observable = (obj: any, scope: IEmberHooksComponent, ancestors: string[]): ProxyHandler<any> => {
   if (typeof obj === 'object') {
     // Set metadata
     Object.defineProperty(obj, '__isProxy', {
@@ -64,11 +65,12 @@ export const observable = (obj, scope, ancestors) => {
   }
 };
 
-const _handleArrayFunctions = (scope, target, prop) => {
+const _handleArrayFunctions = (scope: IEmberHooksComponent, target: any, prop: string): Function => {
   // TODO: tw - should this be an object instead of ifs?
   const emberArray = scope.get(target.__ancestors.join());
   if (prop === 'push') {
-    return (val) => {
+    return (val: any) => {
+      // TODO: tw - create observable here
       emberArray.pushObject(val);
       return target.push(val);
     };
@@ -83,7 +85,7 @@ const _handleArrayFunctions = (scope, target, prop) => {
       return target.shift();
     }
   } else if (prop === 'unshift') {
-    return (...args) => {
+    return (...args: any[]) => {
       emberArray.unshiftObjects(args);
       return target.unshift(...args);
     }
@@ -94,7 +96,7 @@ const _handleArrayFunctions = (scope, target, prop) => {
     }
   }
 
-  // TODO: tw- should this have a default return, if so what?
+  return target[prop]();
 }
 
-const _createPropertyNavigationString = (ancestors, prop) => `${ancestors.join('.')}.${prop}`;
+const _createPropertyNavigationString = (ancestors: string[], prop: string): string => `${ancestors.join('.')}.${prop}`;
