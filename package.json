@@ -1,13 +1,17 @@
 {
-  "name": "ember-hooks",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "name": "ember-cli-hooks",
+  "version": "1.0.0-beta.0",
+  "description": "React/Vue Style Hooks for Ember",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "repository": "https://github.com/twaite/ember-hooks",
   "license": "MIT",
-  "author": "",
+  "author": "Tim Waite (https://github.com/twaite)",
+  "contributors": [
+    "Joseph Campuzano (https://github.com/jcampuza/)",
+    "Sebastian Klingler (https://github.com/sliptype/)"
+  ],
   "directories": {
     "doc": "doc",
     "test": "tests"
