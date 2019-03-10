@@ -16,11 +16,14 @@ export interface IHookStore {
   }
 }
 
+// @ts-ignore
+// tw - unfortunately I need to do this in order to prevent TS from complaining about our set calls
 export interface IEmberHooksComponent extends Component {
   hooks(instance: Component): void,
   instanceProxy: ProxyHandler<any>,
   _state: string,
   _hookStore: IHookStore,
+  set: (prop: string, value: any) => void, // Have to define this or it will complain about undefined props being set
 }
 
 let hookCallIndex = 0;
@@ -40,7 +43,7 @@ const EmberHooksMixin = Mixin.create({
       currentInstance = null;
     }
   },
-  willRender() {
+  willRender(this: IEmberHooksComponent) {
     this._super(...arguments);
     const hooks = this.get('hooks');
     if (hooks) {

@@ -1,5 +1,6 @@
 import { A } from '@ember/array';
 import { IEmberHooksComponent } from 'ember-hooks/mixins/ember-hooks';
+import Ember from 'ember';
 
 export const emberizeArrays = (obj: any): any => {
   if (typeof obj === 'object') {
@@ -35,7 +36,7 @@ export const observable = (obj: any, scope: IEmberHooksComponent, ancestors: str
     });
 
     return new Proxy(obj, {
-      get(target, prop) {
+      get(target, prop: string) {
         if (target.__isProxy) {
           if (Array.isArray(target)) {
             return _handleArrayFunctions(scope, target, prop);
@@ -45,7 +46,7 @@ export const observable = (obj: any, scope: IEmberHooksComponent, ancestors: str
 
         return scope.get(prop);
       },
-      set(obj, prop, value) {
+      set(obj, prop: string, value) {
         if (obj.__ancestors) {
           const navigationString = _createPropertyNavigationString(obj.__ancestors, prop);
           scope.set(navigationString, value);
