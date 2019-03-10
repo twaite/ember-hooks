@@ -26,7 +26,7 @@ export const observable = (obj: any, scope: IEmberHooksComponent, ancestors?: st
     });
     Object.defineProperty(obj, '__ancestors', {
       value: ancestors,
-      enumerable: false,
+
     })
 
     Object.keys(obj).forEach(key => {
