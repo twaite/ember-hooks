@@ -6,10 +6,10 @@ import Component from '@ember/component';
 import { A } from '@ember/array';
 import { inject as service } from '@ember/service';
 
+// TODO: tw - fix this
 // import { clone } from 'npm:clone';
 
 import { depsAreEqual } from '../utils/memo';
-
 
 type MemoizedStateEntry = [any, any[] | null];
 
@@ -59,7 +59,7 @@ const EmberHooksMixin = Mixin.create({
 /*
  * TODO: tw - doc
  */
-export const useProperties = defaultProps => {
+export const useObservedProps = defaultProps => {
   const self = currentInstance;
 
   if (self._state === 'preRender' && !self.instanceProxy) {

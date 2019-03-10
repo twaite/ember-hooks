@@ -1,7 +1,7 @@
-import { useProperties } from 'ember-hooks/mixins/ember-hooks';
+import { useObservedProps } from 'ember-hooks/mixins/ember-hooks';
 
 export default function useCounter() {
-  const state = useProperties({
+  const state = useObservedProps({
     count: 0,
   });
 

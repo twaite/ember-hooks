@@ -1,11 +1,11 @@
 import Component from '@ember/component';
 import layout from '../templates/components/counter-with-hooks';
-import EmberHooksMixin, { useProperties } from 'ember-hooks/mixins/ember-hooks';
+import EmberHooksMixin, { useObservedProps } from 'ember-hooks/mixins/ember-hooks';
 
 export default Component.extend(EmberHooksMixin, {
   layout,
   hooks() {
-    const state = useProperties({
+    const state = useObservedProps({
       countA: 0,
       nested: {
         countB: 0,

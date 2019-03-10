@@ -8,13 +8,13 @@ This is an experimental addon that allows you to use react style hooks inside of
 ```javascript
 import Component from '@ember/component';
 import layout from '../templates/components/counter-with-hooks';
-import EmberHooksMixin, { useProperties } from 'ember-hooks/mixins/ember-hooks';
+import EmberHooksMixin, { useObservedProps } from 'ember-hooks/mixins/ember-hooks';
 
 export default Component.extend(EmberHooksMixin, {
   layout,
   hooks() {
     // Use properties will automatically bind this data to your components scope
-    const state = useProperties({
+    const state = useObservedProps({
       count: 0,
     });
 
