@@ -6,6 +6,7 @@ import Component from '@ember/component';
 // import { clone } from 'npm:clone';
 
 import { depsAreEqual } from '../utils/memo';
+import Ember from 'ember';
 
 type MemoizedStateEntry = [any, any[] | null];
 
@@ -118,9 +119,11 @@ export const useMemo = <T>(createMemoizedValue: () => T, deps?: any[] | null): T
   return nextState;
 }
 
-export const withHooks = (...args) => {
+export const withHooks = (...args: Ember.Object[]) => {
   // This will get any mixins passed in
-  const config = args.pop(args.length - 1);
+  const config: any = args.pop();
+  // @ts-ignore
+  // Ignoring b/c the component doesn't like having multiple mixins
   return Component.extend(EmberHooksMixin, ...args, {
     hooks() {
       return config(this.attrs);
