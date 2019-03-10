@@ -1,7 +1,6 @@
 import { emberizeArrays, observable, } from './../utils/observedProps';
 import Mixin from '@ember/object/mixin';
 import Component from '@ember/component';
-import { inject as service } from '@ember/service';
 
 // TODO: tw - fix this
 // import { clone } from 'npm:clone';
@@ -23,7 +22,9 @@ export interface IEmberHooksComponent extends Component {
   instanceProxy: ProxyHandler<any>,
   _state: string,
   _hookStore: IHookStore,
-  set: (prop: string, value: any) => void, // Have to define this or it will complain about undefined props being set
+  // Have to define this or it will complain about undefined props being set
+  set: (prop: string, value: any) => void,
+  get: (prop: string) => any,
 }
 
 let hookCallIndex = 0;
@@ -56,11 +57,18 @@ const EmberHooksMixin = Mixin.create({
   },
 });
 
-/*
- * TODO: tw - doc
+/**
+ * useObservedProps is a function that will set ember props on a components
+ * scope and wrap them in an observable so that they can be mutated without
+ * explicitly calling Ember.get and Ember.set;
+ *
+ * @param {object} defaultProps - this object defines the default state set on the component
  */
-export const useObservedProps = defaultProps => {
+export const useObservedProps = (defaultProps: any) => {
   const self = currentInstance;
+  if (self === null) {
+    throw new Error('Unable to find Ember instance');
+  }
 
   if (self._state === 'preRender' && !self.instanceProxy) {
 
@@ -78,12 +86,6 @@ export const useObservedProps = defaultProps => {
   }
 
   return self.instanceProxy;
-};
-
-export const useStore = () => {
-  const self = currentInstance;
-  if (self._state === 'preRender') self.set('store', service('store'));
-  return self.get('store');
 };
 
 /**

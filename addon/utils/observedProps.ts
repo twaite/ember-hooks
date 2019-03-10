@@ -1,6 +1,5 @@
 import { A } from '@ember/array';
 import { IEmberHooksComponent } from 'ember-hooks/mixins/ember-hooks';
-import Ember from 'ember';
 
 export const emberizeArrays = (obj: any): any => {
   if (typeof obj === 'object') {
@@ -18,7 +17,7 @@ export const emberizeArrays = (obj: any): any => {
   return obj;
 }
 
-export const observable = (obj: any, scope: IEmberHooksComponent, ancestors: string[]): ProxyHandler<any> => {
+export const observable = (obj: any, scope: IEmberHooksComponent, ancestors?: string[]): ProxyHandler<any> => {
   if (typeof obj === 'object') {
     // Set metadata
     Object.defineProperty(obj, '__isProxy', {
